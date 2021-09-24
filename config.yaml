@@ -1,0 +1,3 @@
+samples:
+  DRR258591: /home/test/Workspace/long_read_tutorial/data/DRR258591/DRR258591.fastq
+num_cpu: 4
