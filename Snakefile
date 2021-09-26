@@ -9,7 +9,7 @@ def get_input_fastqs(wildcards):
 # Snakemake rules
 rule all:
     input:
-        "mapped_reads/{sample}.mapped.sam"
+        "variants/variants.vcf"
 
 rule porechop:
     input:
