@@ -3,9 +3,14 @@ configfile: "config.yaml"
 
 # helper functions
 def get_input_fastqs(wildcards):
+    print(wildcards)
     return config["samples"][wildcards.sample]
 
 # Snakemake rules
+rule all:
+    input:
+        "mapped_reads/{sample}.mapped.sam"
+
 rule porechop:
     input:
         get_input_fastqs
@@ -36,7 +41,7 @@ rule nanoflit:
 
 rule minimap2_map:
     input:
-        ref="../long_read_tutorial/data/genomes/hg38.fa.gz",
+        ref="../long_read_tutorial/data/genomes/hg38.fa.gz", #/projects/b1042/YueLab/xtwang/data/hg38/hg38.fa
         fastq="trimmed_reads/{sample}.trimmed.fastq"
     output:
         "mapped_reads/{sample}.mapped.sam"
@@ -47,3 +52,20 @@ rule minimap2_map:
     shell:
         "(minimap2  -t {params.num_cpu} --MD "
         "-a {input.ref} {input.fastq} > {output}) 2> {log}"
+
+rule sort_and_index_sam:
+    input:
+        "mapped_reads/{sample}.mapped.sam"
+    output:
+        unsorted_bam="mapped_reads/{sample}.mapped.bam",
+        sorted_bam="sorted_reads/{sample}.mapped.sorted.bam"
+    run:
+        shell("samtools view -bS {input} > {output.unsorted_bam}")
+        shell("samtools sort -o {output.sorted_bam} {output.unsorted_bam}")
+        shell("samtools index {output.sorted_bam}")
+
+rule sniffles:
+    input:
+        "sorted_reads/{sample}.mapped.sorted.bam"
+    output:
+        "variants/variants.vcf"
