@@ -3,7 +3,6 @@ configfile: "config.yaml"
 
 # helper functions
 def get_input_fastqs(wildcards):
-    print(wildcards)
     return config["samples"][wildcards.sample]
 
 # Snakemake rules
@@ -66,6 +65,10 @@ rule sort_and_index_sam:
 
 rule sniffles:
     input:
-        "sorted_reads/{sample}.mapped.sorted.bam"
+        expand("sorted_reads/{sample}.mapped.sorted.bam", sample=config["samples"])
     output:
         "variants/variants.vcf"
+    log:
+        "logs/sniffles/sniffles.log"
+    shell:
+        "(sniffles -m {input} -v {output}) 1>{log}"
