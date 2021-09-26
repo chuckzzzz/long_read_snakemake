@@ -1,0 +1,4 @@
+Building DAG of jobs...
+MissingInputException in line 37 of /home/test/Workspace/long_read_snakemake/repo/Snakefile:
+Missing input files for rule minimap2_map:
+../long_read_tutorial/data/genomes/hg38.fa.gz

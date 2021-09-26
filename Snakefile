@@ -17,7 +17,7 @@ rule porechop:
         "logs/porechop/{sample}.log"
     shell:
         "(porechop -i {input} -o {output} --discard_middle "
-        "-t {params.num_cpu}) 2>{log}"
+        "-t {params.num_cpu}) 1>{log}"
 
 rule nanoflit:
     input:
@@ -32,7 +32,7 @@ rule nanoflit:
     shell:
         "(NanoFilt -l {params.minimal_read_length} --headcrop {params.head_crop} "
         "< {input} "
-        "> {output}) 2>{log}"
+        "> {output}) 1>{log}"
 
 rule minimap2_map:
     input:
