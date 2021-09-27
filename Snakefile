@@ -40,7 +40,7 @@ rule nanoflit:
 
 rule minimap2_map:
     input:
-        ref="/projects/b1042/YueLab/xtwang/data/hg38/hg38.fa"
+        ref="/projects/b1042/YueLab/xtwang/data/hg38/hg38.fa",
         fastq="trimmed_reads/{sample}.trimmed.fastq"
     output:
         "mapped_reads/{sample}.mapped.sam"

@@ -1,5 +1,5 @@
 samples:
-  DRR258591: /home/test/Workspace/long_read_tutorial/data/DRR258591/DRR258591.fastq
-num_cpu: 4
+  test: /projects/b1042/YueLab/xtwang/data/Cancer-WGS/SCaBER/SCaBER-merged1_2_3_4-nanopore.fastq
+num_cpu: 14
 minimal_read_length: 500
 head_crop: 10
