@@ -1,20 +1,18 @@
 import pysam
-file1="/projects/b1042/YueLab/zzhang/ont_test/variants/variants.vcf" #my
+file1="/projects/b1042/YueLab/zzhang/ont_pipeline_sample/variants/variants.vcf" #my
 file2="/projects/b1042/YueLab/xtwang/workspace/Cancer-nanopore/SCaBER-MD/SCaBER_nanopore.sniffles.vcf" #xiaotao's
 def extract_coords_from_sam(sam_file):
     pos_by_chrom={}
     
     with open(sam_file) as fp:
         for line in fp:
-            if "#" in line:
-                continue
-            else:
-                cur_line=line.split('\t')
+            cur_line=line.split('\t')
+            if("#" not in line):
                 cur_chr,cur_pos=cur_line[0],cur_line[1]
                 if(cur_chr) not in pos_by_chrom.keys():
                     pos_by_chrom[cur_chr]=[]
                 pos_by_chrom[cur_chr].append(int(cur_pos))
-        return pos_by_chrom
+    return pos_by_chrom
 my=extract_coords_from_sam(file1)
 xt=extract_coords_from_sam(file2)
 
