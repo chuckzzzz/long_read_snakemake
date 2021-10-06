@@ -69,9 +69,9 @@ if __name__ == '__main__':
     plt.savefig(output_vis_fig)
 
     # calculate 99 percentile RE
-    thres = np.percentile(analysis_df["RE"], 99) # return 50th percentile, e.g median.
+    thres = np.percentile(analysis_df["RE"], re_percentile) 
     target_df=analysis_df[analysis_df['RE']>thres]
-    target_df=target_df.reset_index()
+    target_df=target_df.reset_index(drop=True)
     target_df.to_csv(output_sv_tsv,sep="\t",index=False)
 
 
